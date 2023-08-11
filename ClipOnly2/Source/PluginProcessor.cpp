@@ -44,7 +44,7 @@ void AudioProcessor::resetState()
     wasPosClipR = false;
     wasNegClipR = false;
 
-	for (int x = 0; x < 16; x++) {
+    for (int x = 0; x < 16; x++) {
         intermediateL[x] = 0.0;
         intermediateR[x] = 0.0;
     }
@@ -101,33 +101,33 @@ void AudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
         double inputSampleL = inL[i] * inputLevel;
         double inputSampleR = inR[i] * inputLevel;
 
-		if (inputSampleL > 4.0) { inputSampleL = 4.0; }
+        if (inputSampleL > 4.0) { inputSampleL = 4.0; }
         if (inputSampleL < -4.0) { inputSampleL = -4.0; }
 
         // The following is identical to ClipOnly. The constants are hardcoded
         // but are the same as before, e.g. 0.9549925859 is the reference level
         // of -0.4 dB and 0.7058208 is `refclip * hardness` from ClipOnly.
-		if (wasPosClipL) {
-			if (inputSampleL < lastSampleL) {
+        if (wasPosClipL) {
+            if (inputSampleL < lastSampleL) {
                 lastSampleL = 0.7058208 + inputSampleL * 0.2609148;
-			} else {
+            } else {
                 lastSampleL = 0.2491717 + lastSampleL * 0.7390851;
             }
             wasPosClipL = false;
-		}
-		if (inputSampleL > 0.9549925859) {
+        }
+        if (inputSampleL > 0.9549925859) {
             wasPosClipL = true;
             inputSampleL = 0.7058208 + lastSampleL * 0.2609148;
         }
-		if (wasNegClipL) {
-			if (inputSampleL > lastSampleL) {
+        if (wasNegClipL) {
+            if (inputSampleL > lastSampleL) {
                 lastSampleL = -0.7058208 + inputSampleL * 0.2609148;
-			} else {
+            } else {
                 lastSampleL = -0.2491717 + lastSampleL * 0.7390851;
             }
             wasNegClipL = false;
         }
-		if (inputSampleL < -0.9549925859) {
+        if (inputSampleL < -0.9549925859) {
             wasNegClipL = true;
             inputSampleL = -0.7058208 + lastSampleL * 0.2609148;
         }
@@ -138,46 +138,46 @@ void AudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
         // same output as ClipOnly, since that also uses a delay of one sample.
         // At higher sampling rates, the delay is longer and so the smoothing
         // takes place over a longer time.
-		intermediateL[spacing] = inputSampleL;
+        intermediateL[spacing] = inputSampleL;
         inputSampleL = lastSampleL;
-		for (int x = spacing; x > 0; x--) {
+        for (int x = spacing; x > 0; x--) {
             intermediateL[x - 1] = intermediateL[x];
         }
-		lastSampleL = intermediateL[0];
+        lastSampleL = intermediateL[0];
 
         // Same logic for the right channel.
-		if (inputSampleR > 4.0) { inputSampleR = 4.0; }
+        if (inputSampleR > 4.0) { inputSampleR = 4.0; }
         if (inputSampleR < -4.0) { inputSampleR = -4.0; }
-		if (wasPosClipR) {
-			if (inputSampleR < lastSampleR) {
+        if (wasPosClipR) {
+            if (inputSampleR < lastSampleR) {
                 lastSampleR = 0.7058208 + inputSampleR * 0.2609148;
-			} else {
+            } else {
                 lastSampleR = 0.2491717 + lastSampleR * 0.7390851;
             }
             wasPosClipR = false;
         }
-		if (inputSampleR > 0.9549925859) {
+        if (inputSampleR > 0.9549925859) {
             wasPosClipR = true;
             inputSampleR = 0.7058208 + lastSampleR * 0.2609148;
         }
-		if (wasNegClipR) {
-			if (inputSampleR > lastSampleR) {
+        if (wasNegClipR) {
+            if (inputSampleR > lastSampleR) {
                 lastSampleR = -0.7058208 + inputSampleR * 0.2609148;
-			} else {
+            } else {
                 lastSampleR = -0.2491717 + lastSampleR * 0.7390851;
             }
             wasNegClipR = false;
         }
-		if (inputSampleR < -0.9549925859) {
+        if (inputSampleR < -0.9549925859) {
             wasNegClipR = true;
             inputSampleR = -0.7058208 + lastSampleR * 0.2609148;
         }
-		intermediateR[spacing] = inputSampleR;
+        intermediateR[spacing] = inputSampleR;
         inputSampleR = lastSampleR;
-		for (int x = spacing; x > 0; x--) {
+        for (int x = spacing; x > 0; x--) {
             intermediateR[x-1] = intermediateR[x];
         }
-		lastSampleR = intermediateR[0];
+        lastSampleR = intermediateR[0];
 
         // At this point, inputSample holds the value that was shifted out
         // of the delay line, so this has been delayed by `spacing` samples.

@@ -102,10 +102,10 @@ void AudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
         float inputSampleL = inL[i] * inputLevel;
         float inputSampleR = inR[i] * inputLevel;
 
-		if (inputSampleL >  4.0f) { inputSampleL =  4.0f; }
-		if (inputSampleL < -4.0f) { inputSampleL = -4.0f; }
-		if (inputSampleR >  4.0f) { inputSampleR =  4.0f; }
-		if (inputSampleR < -4.0f) { inputSampleR = -4.0f; }
+        if (inputSampleL >  4.0f) { inputSampleL =  4.0f; }
+        if (inputSampleL < -4.0f) { inputSampleL = -4.0f; }
+        if (inputSampleR >  4.0f) { inputSampleR =  4.0f; }
+        if (inputSampleR < -4.0f) { inputSampleR = -4.0f; }
 
         // Are we currently clipping?
         if (wasPosClipL) {
