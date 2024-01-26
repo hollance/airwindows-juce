@@ -50,8 +50,8 @@ private:
     double intermediateR[17];
 
     // Used by Airwindows dithering, which I disabled for the JUCE version.
-	//uint32_t fpdL;
-	//uint32_t fpdR;
+    //uint32_t fpdL;
+    //uint32_t fpdR;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioProcessor)
 };
