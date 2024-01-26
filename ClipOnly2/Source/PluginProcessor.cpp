@@ -92,9 +92,9 @@ void AudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     */
 
     // Calculate the length of the delay line. Could move this into prepareToPlay().
-	double overallscale = getSampleRate() / 44100.0;
-	int spacing = std::floor(overallscale);
-	if (spacing < 1) { spacing = 1; }
+    double overallscale = getSampleRate() / 44100.0;
+    int spacing = std::floor(overallscale);
+    if (spacing < 1) { spacing = 1; }
     if (spacing > 16) { spacing = 16; }
 
     for (int i = 0; i < buffer.getNumSamples(); ++i) {

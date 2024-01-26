@@ -39,7 +39,7 @@ void AudioProcessor::resetState()
     lastSampleL = 0.0;
     lastSampleR = 0.0;
 
-	for (int x = 0; x < 16; x++) {
+    for (int x = 0; x < 16; x++) {
         intermediateL[x] = 0.0;
         intermediateR[x] = 0.0;
     }
@@ -80,9 +80,9 @@ void AudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     // Calculate the length of the delay line. Could go into prepareToPlay().
     // At 44.1 and 48 kHz, the delay is only one sample. At higher sampling rates,
     // the delay is longer and so the smoothing takes place over a longer time.
-	double overallscale = getSampleRate() / 44100.0;
-	int spacing = std::floor(overallscale);
-	if (spacing < 1) { spacing = 1; }
+    double overallscale = getSampleRate() / 44100.0;
+    int spacing = std::floor(overallscale);
+    if (spacing < 1) { spacing = 1; }
     if (spacing > 16) { spacing = 16; }
 
     for (int i = 0; i < buffer.getNumSamples(); ++i) {
